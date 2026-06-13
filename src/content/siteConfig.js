@@ -37,7 +37,7 @@ export const siteConfig = {
     'front end and Laravel / PHP + MySQL on the back end. Open to remote roles.',
 
   // TODO: confirm your real, monitored email address.
-  email: 'kylle.actub@gmail.com',
+  email: 'kyllenichole123@gmail.com',
 
   // TODO: drop your résumé PDF at `public/resume.pdf` (or change this path).
   resumeUrl: '/resume.pdf',
