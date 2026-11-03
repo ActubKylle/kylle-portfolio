@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       // Semantic color tokens driven by CSS variables in index.css, so the whole
       // UI re-themes (light/dark) from one place. `<alpha-value>` keeps Tailwind

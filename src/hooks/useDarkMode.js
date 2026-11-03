@@ -26,7 +26,7 @@ export function useDarkMode() {
       /* ignore */
     }
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#0d1117' : '#ffffff');
+    if (meta) meta.setAttribute('content', dark ? '#0a0a0b' : '#ffffff');
   }, [dark]);
 
   const toggle = useCallback(() => setDark((d) => !d), []);

@@ -3,43 +3,60 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <!-- Primary meta -->
     <title>Kylle Nichole Actub — Full-Stack Web Developer</title>
     <meta
       name="description"
-      content="Kylle Nichole Actub is a full-stack web developer (React, Next.js, Laravel, PHP, MySQL) based in Cebu, PH. Open to remote roles."
+      content="Kylle Nichole Actub is a full-stack web developer in Cebu, PH building web applications with Laravel, React, and MySQL, plus WordPress development and technical SEO."
     />
     <meta name="author" content="Kylle Nichole Actub" />
-    <meta name="theme-color" content="#0d1117" />
+    <meta name="theme-color" content="#0a0a0b" />
+    <!-- TODO: once deployed, add your domain here and in og:url, e.g.
+         <link rel="canonical" href="https://your-domain.com/" /> -->
 
     <!-- Open Graph / social previews -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Kylle Nichole Actub — Full-Stack Web Developer" />
     <meta
       property="og:description"
-      content="Full-stack web developer — React, Next.js, Laravel, PHP, MySQL. Based in Cebu, PH. Open to remote roles."
+      content="Laravel, React, and MySQL web applications, plus WordPress development and technical SEO. Based in Cebu, PH."
     />
-    <!-- TODO: add a real 1200x630 share image at public/og-image.png -->
     <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Kylle Nichole Actub — Full-Stack Web Developer" />
     <meta
       name="twitter:description"
-      content="Full-stack web developer — React, Next.js, Laravel, PHP, MySQL. Based in Cebu, PH."
+      content="Laravel, React, and MySQL web applications, plus WordPress development and technical SEO."
     />
     <meta name="twitter:image" content="%PUBLIC_URL%/og-image.png" />
+
+    <!-- Structured data: who this site is about -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Kylle Nichole Actub",
+        "jobTitle": "Full-Stack Web Developer",
+        "address": { "@type": "PostalAddress", "addressLocality": "Cebu", "addressCountry": "PH" },
+        "knowsAbout": ["Laravel", "React", "PHP", "MySQL", "WordPress", "Technical SEO"],
+        "sameAs": ["https://github.com/ActubKylle", "https://www.linkedin.com/in/kylle-actub"]
+      }
+    </script>
 
     <!-- Fonts: preconnect + non-blocking load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/kylle-portrait.webp" type="image/webp" />
 
     <!-- No-flash theme: set the <html> class before first paint. Mirrors the
          logic in src/hooks/useDarkMode.js (stored > OS-light > dark default). -->
@@ -56,7 +73,10 @@
     </script>
   </head>
   <body>
-    <noscript>This portfolio needs JavaScript enabled to run.</noscript>
+    <noscript>
+      Kylle Nichole Actub — Full-Stack Web Developer (Laravel, React, MySQL, WordPress). This portfolio needs
+      JavaScript; you can also find my work at https://github.com/ActubKylle.
+    </noscript>
     <div id="root"></div>
   </body>
 </html>

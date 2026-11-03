@@ -1,29 +1,28 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Send } from 'lucide-react';
-import Container from './Container';
+import { ArrowUpRight, Github, Linkedin, Mail, Send } from 'lucide-react';
+import Section from './Section';
 import SectionHeading from './SectionHeading';
 import Button from './Button';
 import { siteConfig, isFormConfigured } from '../content/siteConfig';
 import { fadeUp, inView } from '../lib/motion';
 
 const fieldClass =
-  'w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-ink placeholder:text-muted/70 ' +
+  'w-full rounded-md border border-line bg-surface px-3.5 py-2.5 text-ink placeholder:text-muted/70 ' +
   'transition-colors focus:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent';
 
-export default function Contact() {
+const channels = [
+  { label: 'Email', value: siteConfig.email, href: `mailto:${siteConfig.email}`, Icon: Mail },
+  { label: 'LinkedIn', value: 'kylle-actub', href: siteConfig.socials.linkedin, Icon: Linkedin, external: true },
+  { label: 'GitHub', value: 'ActubKylle', href: siteConfig.socials.github, Icon: Github, external: true },
+];
+
+// Only rendered when a Web3Forms key is configured in siteConfig.
+function ContactForm() {
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    // Without a Web3Forms key, fall back to the user's mail client so the form
-    // is never a dead end.
-    if (!isFormConfigured) {
-      window.location.href = `mailto:${siteConfig.email}`;
-      return;
-    }
-
     setStatus('submitting');
     const data = Object.fromEntries(new FormData(e.target));
     try {
@@ -48,109 +47,91 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-24 border-t border-line py-24 sm:py-32">
-      <Container>
-        <SectionHeading number="03">Let&apos;s work together</SectionHeading>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="name" className="mb-1.5 block text-sm text-muted">
+            Name
+          </label>
+          <input id="name" name="name" type="text" required autoComplete="name" className={fieldClass} />
+        </div>
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-sm text-muted">
+            Email
+          </label>
+          <input id="email" name="email" type="email" required autoComplete="email" className={fieldClass} />
+        </div>
+      </div>
+      <div>
+        <label htmlFor="message" className="mb-1.5 block text-sm text-muted">
+          Message
+        </label>
+        <textarea id="message" name="message" rows={5} required className={`${fieldClass} resize-y`} />
+      </div>
 
-        <motion.p variants={fadeUp} {...inView} className="-mt-6 mb-12 max-w-xl text-lg text-muted">
-          Looking for a full-stack developer? Tell me about the role or project — I
-          usually reply within 24 hours.
-        </motion.p>
-
-        <motion.div
-          variants={fadeUp}
-          {...inView}
-          className="grid gap-12 md:grid-cols-[1.4fr_1fr]"
+      <div className="flex items-center gap-4">
+        <Button type="submit" disabled={status === 'submitting'}>
+          <Send size={16} aria-hidden="true" />
+          {status === 'submitting' ? 'Sending…' : 'Send message'}
+        </Button>
+        <p
+          role="status"
+          aria-live="polite"
+          className={`text-sm ${status === 'success' ? 'text-accent' : status === 'error' ? 'text-red-500' : 'text-muted'}`}
         >
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate={false}>
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label htmlFor="name" className="mb-1.5 block font-mono text-sm text-muted">
-                  Name
-                </label>
-                <input id="name" name="name" type="text" required autoComplete="name" className={fieldClass} />
-              </div>
-              <div>
-                <label htmlFor="email" className="mb-1.5 block font-mono text-sm text-muted">
-                  Email
-                </label>
-                <input id="email" name="email" type="email" required autoComplete="email" className={fieldClass} />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="message" className="mb-1.5 block font-mono text-sm text-muted">
-                Message
-              </label>
-              <textarea id="message" name="message" rows={5} required className={`${fieldClass} resize-y`} />
-            </div>
+          {status === 'success' && 'Thanks, your message was sent.'}
+          {status === 'error' && (
+            <>
+              Something went wrong.{' '}
+              <a href={`mailto:${siteConfig.email}`} className="underline">
+                Email me directly
+              </a>
+              .
+            </>
+          )}
+        </p>
+      </div>
+    </form>
+  );
+}
 
-            <div className="flex items-center gap-4">
-              <Button type="submit" disabled={status === 'submitting'}>
-                <Send size={16} aria-hidden="true" />
-                {status === 'submitting' ? 'Sending…' : 'Send message'}
-              </Button>
+export default function Contact() {
+  return (
+    <Section id="contact">
+      <SectionHeading
+        eyebrow="Contact"
+        title="Let's work together"
+        description="Hiring for a full-stack or WordPress role, or need help with a web project? Send me a message."
+      />
 
-              {/* Status, announced to screen readers */}
-              <p
-                role="status"
-                aria-live="polite"
-                className={`text-sm ${
-                  status === 'success' ? 'text-accent' : status === 'error' ? 'text-red-500' : 'text-muted'
-                }`}
+      <motion.div
+        variants={fadeUp}
+        {...inView}
+        className={isFormConfigured ? 'grid gap-12 md:grid-cols-[1.4fr_1fr]' : ''}
+      >
+        {isFormConfigured && <ContactForm />}
+
+        <ul className={`grid gap-3 ${isFormConfigured ? '' : 'sm:grid-cols-3'}`}>
+          {channels.map(({ label, value, href, Icon, external }) => (
+            <li key={label}>
+              <a
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                aria-label={external ? `${label}: ${value} (opens in a new tab)` : `${label}: ${value}`}
+                className="group flex items-center gap-4 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
-                {status === 'success' && 'Thanks — I’ll be in touch soon.'}
-                {status === 'error' && (
-                  <>
-                    Something went wrong.{' '}
-                    <a href={`mailto:${siteConfig.email}`} className="underline">
-                      Email me directly
-                    </a>
-                    .
-                  </>
-                )}
-              </p>
-            </div>
-          </form>
-
-          {/* Direct channels */}
-          <div>
-            <p className="mb-4 font-mono text-sm text-muted">Or reach me directly:</p>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="inline-flex items-center gap-3 rounded text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                >
-                  <Mail size={18} aria-hidden="true" /> {siteConfig.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={siteConfig.socials.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn profile (opens in a new tab)"
-                  className="inline-flex items-center gap-3 rounded text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                >
-                  <Linkedin size={18} aria-hidden="true" /> LinkedIn
-                </a>
-              </li>
-              <li>
-                <a
-                  href={siteConfig.socials.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub profile (opens in a new tab)"
-                  className="inline-flex items-center gap-3 rounded text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                >
-                  <Github size={18} aria-hidden="true" /> GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
-        </motion.div>
-      </Container>
-    </section>
+                <Icon size={18} aria-hidden="true" className="flex-shrink-0 text-muted group-hover:text-ink" />
+                <span className="min-w-0">
+                  <span className="block text-xs text-muted">{label}</span>
+                  <span className="block truncate text-sm font-medium text-heading">{value}</span>
+                </span>
+                <ArrowUpRight size={15} aria-hidden="true" className="ml-auto flex-shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </Section>
   );
 }

@@ -13,7 +13,7 @@ export default function Footer() {
             © {year} {siteConfig.name}. Built with React &amp; Tailwind CSS.
           </p>
           {siteConfig.now && (
-            <p className="mt-1 font-mono text-xs text-muted">{siteConfig.now}</p>
+            <p className="mt-1 text-xs text-muted">{siteConfig.now}</p>
           )}
         </div>
 
@@ -22,7 +22,7 @@ export default function Footer() {
             <a
               href={`mailto:${siteConfig.email}`}
               aria-label="Email"
-              className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               <Mail size={18} aria-hidden="true" />
             </a>
@@ -33,7 +33,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn (opens in a new tab)"
-              className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               <Linkedin size={18} aria-hidden="true" />
             </a>
@@ -44,7 +44,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub (opens in a new tab)"
-              className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               <Github size={18} aria-hidden="true" />
             </a>

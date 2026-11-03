@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Kylle Nichole Actub — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal portfolio of a full-stack web developer (Laravel, React, MySQL) who also does
+WordPress development and technical SEO.
 
-## Available Scripts
+Built with React 18, Tailwind CSS 3, and Framer Motion (Create React App).
 
-In the project directory, you can run:
+## Run it
 
-### `npm start`
+```bash
+npm install
+npm start        # http://localhost:3000 — drafts visible
+npm test         # filters, search, pagination, routing
+npm run build    # production build — drafts removed
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Where things live
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Path | What it holds |
+| --- | --- |
+| `src/content/siteConfig.js` | Name, headline, email, socials, résumé, contact-form key |
+| `src/content/sections.js` | Section order and nav labels |
+| `src/content/projects.js` | Full-stack applications + the HTTA case study |
+| `src/content/websites.js` | "Websites I've Worked On" gallery entries |
+| `src/content/seo.js`, `skills.js`, `about.js` | Technical SEO, skills, about, experience, education |
+| `src/components/` | Sections and reusable UI (cards, case-study layout, gallery) |
+| `scripts/make-thumbnail.py` | Screenshot a site and write optimized WebP thumbnails |
 
-### `npm test`
+## Content rules
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Drafts.** Any entry with `draft: true` shows in `npm start` with a yellow *Draft* badge
+  and is stripped from `npm run build`. Use it for anything not yet verified.
+- **Only real work.** List only sites and contributions you actually worked on. Use
+  `client: { confidential: true }` to show a site without its name or link.
+- **Measured numbers only.** PageSpeed results in a case study need the tool, device, and date.
 
-### `npm run build`
+## Adding a website to the gallery
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+py scripts/make-thumbnail.py --url https://example.com --out public/images/websites/example
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The script captures the page with headless Chrome/Edge, crops it to 16:10, writes
+`example-640.webp` and `example-1280.webp`, and prints the `image:` line to paste into the
+entry. Then copy the template at the bottom of `src/content/websites.js`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A site with a `caseStudy` gets its own page at `#/websites/<slug>`.
 
-### `npm run eject`
+## Before deploying
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Search the codebase for `TODO` — each one marks a fact only you can fill in (résumé,
+experience, education, HTTA screenshots, contact-form key, canonical URL).

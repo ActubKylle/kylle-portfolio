@@ -31,3 +31,7 @@ beforeAll(() => {
 
   if (!window.scrollTo) window.scrollTo = () => {};
 });
+
+// jsdom does not implement scrolling; the app calls these on route changes.
+window.scrollTo = () => {};
+Element.prototype.scrollIntoView = () => {};

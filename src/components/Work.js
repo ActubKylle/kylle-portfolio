@@ -1,35 +1,40 @@
-import { motion } from 'framer-motion';
-import Container from './Container';
+import Section from './Section';
 import SectionHeading from './SectionHeading';
 import FeaturedProject from './FeaturedProject';
 import ProjectRow from './ProjectRow';
 import { projects } from '../content/projects';
-import { stagger } from '../lib/motion';
+import { published } from '../lib/drafts';
 
+// Full-stack applications (Laravel / React). WordPress sites live in the
+// separate WebsiteGallery section.
 export default function Work() {
-  const featured = projects.filter((p) => p.featured);
-  const supporting = projects.filter((p) => !p.featured);
+  const list = published(projects);
+  const featured = list.filter((p) => p.featured);
+  const supporting = list.filter((p) => !p.featured);
 
   return (
-    <section id="work" className="scroll-mt-24 py-24 sm:py-32">
-      <Container>
-        <SectionHeading number="01">Selected Work</SectionHeading>
+    <Section id="projects" border={false}>
+      <SectionHeading
+        eyebrow="Full-stack applications"
+        title="Projects"
+        description="Web applications I designed and built across the database, backend, and frontend."
+      />
 
-        {/* Flagship case study */}
+      <div className="space-y-6">
         {featured.map((project) => (
-          <FeaturedProject key={project.title} project={project} />
+          <FeaturedProject key={project.slug} project={project} />
         ))}
+      </div>
 
-        {/* Supporting projects */}
-        <motion.div
-          variants={stagger}
-          className="mt-20 flex flex-col gap-20 sm:mt-28 sm:gap-28"
-        >
-          {supporting.map((project, i) => (
-            <ProjectRow key={project.title} project={project} reversed={i % 2 === 1} />
+      {supporting.length > 0 && (
+        <ul className="mt-6 grid gap-6 md:grid-cols-2">
+          {supporting.map((project) => (
+            <li key={project.slug} className="flex">
+              <ProjectRow project={project} />
+            </li>
           ))}
-        </motion.div>
-      </Container>
-    </section>
+        </ul>
+      )}
+    </Section>
   );
 }

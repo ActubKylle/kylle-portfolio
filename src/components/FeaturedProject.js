@@ -1,108 +1,91 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Check, Github } from 'lucide-react';
-import HeroVisual from './HeroVisual';
+import { ArrowRight, ArrowUpRight, Github } from 'lucide-react';
+import ArchitectureDiagram from './ArchitectureDiagram';
+import Picture from './Picture';
+import { DraftBadge, TagList } from './Tag';
 import { fadeUp, inView } from '../lib/motion';
 
-// Flagship case study: a larger, story-driven layout (Overview → Problem →
-// What I built → highlights). Falls back to the system-diagram visual when no
-// screenshot is set.
+export const projectLinkClass =
+  'inline-flex items-center gap-1.5 rounded text-sm font-medium underline-offset-4 hover:underline ' +
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent';
+
+export function ProjectLinks({ project }) {
+  return (
+    <div className="flex flex-wrap gap-x-5 gap-y-2">
+      {project.caseStudy && (
+        <a href={`#/projects/${project.slug}`} className={`${projectLinkClass} text-accent`}>
+          Read the case study <ArrowRight size={15} aria-hidden="true" />
+        </a>
+      )}
+      {project.links.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${link.label} for ${project.title} (opens in a new tab)`}
+          className={`${projectLinkClass} text-ink hover:text-accent`}
+        >
+          {link.type === 'demo' ? <ArrowUpRight size={15} aria-hidden="true" /> : <Github size={15} aria-hidden="true" />}
+          {link.label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+// Flagship application: overview, key features, role, stack, and a visual
+// (screenshot when available, otherwise the real system architecture).
 export default function FeaturedProject({ project }) {
-  const { category, title, blurb, problem, solution, highlights, tech, links, image } = project;
+  const { category, title, blurb, role, features, tech, image, draft } = project;
 
   return (
-    <motion.article
-      variants={fadeUp}
-      {...inView}
-      className="relative overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-surface to-bg p-6 shadow-2xl sm:p-10"
-    >
-      {/* soft accent glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl"
-      />
-
-      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-        {/* Narrative */}
-        <div className="order-2 lg:order-1">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
-              ★ Flagship
-            </span>
-            {category && <span className="font-mono text-xs text-muted">{category}</span>}
+    <motion.article variants={fadeUp} {...inView} className="rounded-lg border border-line bg-surface p-6 sm:p-8">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-12">
+        <div>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+            <span className="font-medium text-accent">Featured</span>
+            <span aria-hidden="true">·</span>
+            <span>{category}</span>
+            {draft && <DraftBadge />}
           </div>
 
-          <h3 className="mt-4 text-2xl font-semibold tracking-tight text-heading sm:text-3xl">
-            {title}
-          </h3>
+          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-heading sm:text-[1.75rem]">{title}</h3>
           <p className="mt-3 leading-relaxed text-muted">{blurb}</p>
 
-          {problem && (
-            <div className="mt-6">
-              <p className="font-mono text-xs text-accent">the problem</p>
-              <p className="mt-1.5 leading-relaxed text-ink">{problem}</p>
+          <dl className="mt-6 space-y-4 text-sm">
+            <div>
+              <dt className="text-xs font-medium uppercase tracking-wide text-muted">My role</dt>
+              <dd className="mt-1 text-ink">{role}</dd>
             </div>
-          )}
-          {solution && (
-            <div className="mt-4">
-              <p className="font-mono text-xs text-accent">what i built</p>
-              <p className="mt-1.5 leading-relaxed text-ink">{solution}</p>
+            <div>
+              <dt className="text-xs font-medium uppercase tracking-wide text-muted">Key features</dt>
+              <dd>
+                <ul className="mt-2 space-y-1.5 text-ink">
+                  {features.map((f) => (
+                    <li key={f} className="flex gap-2.5">
+                      <span aria-hidden="true" className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-accent" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
             </div>
-          )}
+          </dl>
 
-          {highlights?.length > 0 && (
-            <ul className="mt-6 grid gap-2 sm:grid-cols-2">
-              {highlights.map((h) => (
-                <li key={h} className="flex items-start gap-2 text-sm text-muted">
-                  <Check size={16} className="mt-0.5 flex-shrink-0 text-accent" aria-hidden="true" />
-                  {h}
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tech used">
-            {tech.map((t) => (
-              <li key={t} className="rounded border border-line px-2 py-1 font-mono text-xs text-muted">
-                {t}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-7 flex flex-wrap gap-4">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${link.label} for ${title} (opens in a new tab)`}
-                className="inline-flex items-center gap-1.5 rounded text-sm font-medium text-accent underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              >
-                {link.type === 'demo' ? (
-                  <ArrowUpRight size={16} aria-hidden="true" />
-                ) : (
-                  <Github size={16} aria-hidden="true" />
-                )}
-                {link.label}
-              </a>
-            ))}
+          <TagList items={tech} className="mt-6" />
+          <div className="mt-7">
+            <ProjectLinks project={project} />
           </div>
         </div>
 
-        {/* Visual */}
-        <div className="order-1 flex justify-center text-accent lg:order-2">
+        <div className="self-center">
           {image ? (
-            <div className="w-full overflow-hidden rounded-xl border border-line">
-              <img
-                src={image}
-                alt={`Screenshot of ${title}`}
-                loading="lazy"
-                decoding="async"
-                className="w-full object-cover"
-              />
+            <div className="overflow-hidden rounded-md border border-line">
+              <Picture image={image} alt={`Screenshot of ${title}`} className="w-full" />
             </div>
           ) : (
-            <HeroVisual />
+            <ArchitectureDiagram />
           )}
         </div>
       </div>
