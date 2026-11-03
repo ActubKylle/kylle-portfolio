@@ -33,8 +33,10 @@ export default function WebsiteCard({ site, featured = false }) {
             className="aspect-[16/10] w-full object-cover object-left-top transition-transform duration-500 ease-out group-hover:scale-[1.015]"
           />
         ) : (
-          <div className="flex aspect-[16/10] w-full items-center justify-center text-sm text-muted">
-            Screenshot pending
+          // No screenshot (e.g. a site that is offline or under NDA): show the
+          // name instead of an empty frame.
+          <div aria-hidden="true" className="flex aspect-[16/10] w-full items-center justify-center px-6">
+            <span className="text-center text-lg font-semibold tracking-tight text-muted/70">{title}</span>
           </div>
         )}
       </div>

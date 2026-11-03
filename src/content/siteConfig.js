@@ -7,7 +7,7 @@ export const siteConfig = {
   name: 'Kylle Nichole Actub',
   shortName: 'KA',
   role: 'Full-Stack Web Developer',
-  location: 'Cebu, PH',
+  location: 'Cagayan de Oro City, PH',
 
   // TODO: only keep this if it is true right now. Set to '' to hide the badge.
   status: 'Available for work',

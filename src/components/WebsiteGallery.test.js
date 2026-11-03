@@ -43,7 +43,7 @@ describe('filterWebsites', () => {
 describe('WebsiteGallery', () => {
   test('shows featured sites, paginates the rest, and loads more', () => {
     render(<WebsiteGallery sites={fixtures} />);
-    expect(within(screen.getByRole('list', { name: 'Featured websites' })).getByText('Agency Site')).toBeInTheDocument();
+    expect(within(screen.getByRole('list', { name: 'Featured websites' })).getByRole('heading', { name: 'Agency Site' })).toBeInTheDocument();
 
     const grid = screen.getByRole('list', { name: 'Websites' });
     expect(within(grid).getAllByRole('article')).toHaveLength(9);
@@ -60,8 +60,8 @@ describe('WebsiteGallery', () => {
 
     expect(chip).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByRole('status')).toHaveTextContent('1 match');
-    expect(screen.getByText('Shop One')).toBeInTheDocument();
-    expect(screen.queryByText('Launch Page')).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Shop One' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Launch Page' })).not.toBeInTheDocument();
   });
 
   test('search with no results offers a reset', () => {
