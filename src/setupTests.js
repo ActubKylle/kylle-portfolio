@@ -1,5 +1,5 @@
 // jest-dom adds custom matchers like .toBeInTheDocument().
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 
 // jsdom doesn't implement these browser APIs that the app relies on.
 beforeAll(() => {

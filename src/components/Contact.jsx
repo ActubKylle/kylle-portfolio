@@ -13,7 +13,7 @@ const fieldClass =
 
 const channels = [
   { label: 'Email', value: siteConfig.email, href: `mailto:${siteConfig.email}`, Icon: Mail },
-  { label: 'LinkedIn', value: 'kylle-actub', href: siteConfig.socials.linkedin, Icon: Linkedin, external: true },
+  { label: 'LinkedIn', value: 'Kylle Nichole Actub', href: siteConfig.socials.linkedin, Icon: Linkedin, external: true },
   { label: 'GitHub', value: 'ActubKylle', href: siteConfig.socials.github, Icon: Github, external: true },
 ];
 

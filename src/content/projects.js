@@ -8,7 +8,7 @@
 //   slug, featured, category, title, blurb, role, features[], tech[],
 //   links[{ type: 'repo' | 'demo', label, href }],
 //   image: { base, width, height } | null   (base → <base>-640/-1280.webp)
-//   caseStudy: { sections[] } | null         (renders at #/projects/<slug>)
+//   caseStudy: { sections[] } | null         (renders at /projects/<slug>)
 //   draft: true → hidden in production until the details are confirmed.
 //
 // Add screenshots with:  py scripts/make-thumbnail.py --file shot.png --out public/images/projects/<slug> --crop none

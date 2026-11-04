@@ -71,7 +71,7 @@ function CaseStudyLayout({ back, eyebrow, title, lead, meta, links = [], image, 
             <ul className="sticky top-24 space-y-2 border-l border-line text-sm">
               {sections.map((s) => (
                 <li key={s.id}>
-                  <a href={`#${s.id}`} onClick={jumpTo(s.id)} className="-ml-px block border-l border-transparent pl-4 text-muted transition-colors hover:border-muted hover:text-ink">
+                  <a href={`#${s.id}`} className="-ml-px block border-l border-transparent pl-4 text-muted transition-colors hover:border-muted hover:text-ink">
                     {s.heading}
                   </a>
                 </li>
@@ -93,15 +93,6 @@ function CaseStudyLayout({ back, eyebrow, title, lead, meta, links = [], image, 
       </Container>
     </article>
   );
-}
-
-// In-page TOC links must not change the hash, or the router would treat them
-// as a navigation back to the home page.
-function jumpTo(id) {
-  return (e) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
 }
 
 function Bullets({ items }) {
@@ -195,7 +186,7 @@ export function ProjectCaseStudy({ project }) {
 
   return (
     <CaseStudyLayout
-      back={{ href: '#projects', label: 'All projects' }}
+      back={{ href: '/#projects', label: 'All projects' }}
       eyebrow="Case study"
       title={project.title}
       lead={project.blurb}
@@ -272,7 +263,7 @@ export function WebsiteCaseStudy({ site }) {
 
   return (
     <CaseStudyLayout
-      back={{ href: '#websites', label: 'All websites' }}
+      back={{ href: '/#websites', label: 'All websites' }}
       eyebrow={`Case study · ${categoryLabel(site.category)}`}
       title={site.title}
       lead={clientLine(site)}

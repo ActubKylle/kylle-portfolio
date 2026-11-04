@@ -13,7 +13,7 @@ export function ProjectLinks({ project }) {
   return (
     <div className="flex flex-wrap gap-x-5 gap-y-2">
       {project.caseStudy && (
-        <a href={`#/projects/${project.slug}`} className={`${projectLinkClass} text-accent`}>
+        <a href={`/projects/${project.slug}`} className={`${projectLinkClass} text-accent`}>
           Read the case study <ArrowRight size={15} aria-hidden="true" />
         </a>
       )}

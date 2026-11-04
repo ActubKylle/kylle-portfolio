@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { siteConfig } from '../content/siteConfig';
 
-const PORTRAIT = `${process.env.PUBLIC_URL || ''}/images/kylle-portrait.webp`;
+const PORTRAIT = '/images/kylle-portrait.webp';
 
 // Hero portrait in a plain frame. Falls back to initials if the image fails.
 export default function HeroShowcase() {

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { MotionConfig } from 'framer-motion';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
@@ -12,15 +12,13 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import DraftNotice from './components/DraftNotice';
+import NotFound from './components/NotFound';
 import { ProjectCaseStudy, WebsiteCaseStudy } from './components/CaseStudyPage';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useActiveSection } from './hooks/useActiveSection';
-import { useHashRoute } from './hooks/useHashRoute';
+import { useRoute } from './hooks/useRoute';
 import { sections, navSections } from './content/sections';
-import { projects } from './content/projects';
-import { websites } from './content/websites';
-import { siteConfig } from './content/siteConfig';
-import { published } from './lib/drafts';
+import { resolvePage } from './lib/pages';
 
 const SECTION_COMPONENTS = {
   projects: Work,
@@ -34,36 +32,37 @@ const SECTION_COMPONENTS = {
 
 // Stable reference so the IntersectionObserver effect doesn't re-run each render.
 const NAV_IDS = navSections.map((s) => s.id);
-const DEFAULT_TITLE = `${siteConfig.name} — ${siteConfig.role}`;
 
-function findCaseStudy(route) {
-  if (!route) return null;
-  const list = route.type === 'projects' ? projects : websites;
-  const item = published(list).find((entry) => entry.slug === route.slug && entry.caseStudy);
-  return item ? { type: route.type, item } : null;
-}
+// useLayoutEffect warns when the app is rendered to HTML at build time.
+const useClientLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
-export default function App() {
-  const [dark, toggleTheme] = useDarkMode();
-  const route = useHashRoute();
-  const page = findCaseStudy(route);
-  const active = useActiveSection(NAV_IDS, !page);
-  const pageKey = page ? `${page.type}/${page.item.slug}` : '';
+// `path` is passed in when prerendering; in the browser it comes from the URL.
+export default function App({ path: initialPath }) {
+  const toggleTheme = useDarkMode();
+  const path = useRoute(initialPath);
+  const page = resolvePage(path);
+  const isHome = page.kind === 'home';
+  const active = useActiveSection(NAV_IDS, isHome);
 
-  // Case study: start at the top. Home: honour a section anchor (e.g. coming
-  // back via #websites) once the sections exist again.
-  useLayoutEffect(() => {
-    if (pageKey) {
-      window.scrollTo(0, 0);
+  // After navigating to another page: jump to the #anchor if there is one
+  // (e.g. back to /#websites), otherwise start at the top. Instant, because the
+  // site-wide smooth scrolling would animate through the old page's height.
+  // The first load is left to the browser.
+  const firstRender = useRef(true);
+  useClientLayoutEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
       return;
     }
     const id = window.location.hash.slice(1);
-    if (id && !id.startsWith('/')) document.getElementById(id)?.scrollIntoView();
-  }, [pageKey]);
+    const target = id && document.getElementById(id);
+    if (target) target.scrollIntoView({ behavior: 'instant' });
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [path]);
 
   useEffect(() => {
-    document.title = page ? `${page.item.title} — Case study · ${siteConfig.name}` : DEFAULT_TITLE;
-  }, [page]);
+    document.title = page.title;
+  }, [page.title]);
 
   return (
     // reducedMotion="user" mutes all Framer animations for users who request it.
@@ -79,12 +78,13 @@ export default function App() {
         Skip to content
       </a>
 
-      <Nav dark={dark} onToggleTheme={toggleTheme} active={page ? '' : active} />
+      <Nav onToggleTheme={toggleTheme} active={isHome ? active : ''} />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        {page?.type === 'projects' && <ProjectCaseStudy project={page.item} />}
-        {page?.type === 'websites' && <WebsiteCaseStudy site={page.item} />}
-        {!page && (
+        {page.kind === 'projects' && <ProjectCaseStudy project={page.item} />}
+        {page.kind === 'websites' && <WebsiteCaseStudy site={page.item} />}
+        {page.kind === 'notfound' && <NotFound />}
+        {isHome && (
           <>
             <Hero />
             {sections.map(({ id }) => {

@@ -77,7 +77,7 @@ export default function WebsiteCard({ site, featured = false }) {
         {(canLink || caseStudy) && (
           <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5">
             {caseStudy && (
-              <a href={`#/websites/${site.slug}`} className={`${linkClass} text-accent`}>
+              <a href={`/websites/${site.slug}`} className={`${linkClass} text-accent`}>
                 Case study <ArrowRight size={15} aria-hidden="true" />
               </a>
             )}

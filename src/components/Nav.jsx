@@ -6,7 +6,7 @@ import ThemeToggle from './ThemeToggle';
 import { siteConfig } from '../content/siteConfig';
 import { navSections } from '../content/sections';
 
-export default function Nav({ dark, onToggleTheme, active }) {
+export default function Nav({ onToggleTheme, active }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -54,7 +54,7 @@ export default function Nav({ dark, onToggleTheme, active }) {
       <Container>
         <nav className="flex h-16 items-center justify-between" aria-label="Primary">
           <a
-            href="#top"
+            href="/#top"
             aria-label={`${siteConfig.name}, back to top`}
             className="rounded text-[0.95rem] font-semibold tracking-tight text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
@@ -67,7 +67,7 @@ export default function Nav({ dark, onToggleTheme, active }) {
               {navSections.map((item) => (
                 <li key={item.id}>
                   <a
-                    href={`#${item.id}`}
+                    href={`/#${item.id}`}
                     aria-current={active === item.id ? 'location' : undefined}
                     className={`rounded text-sm transition-colors hover:text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       active === item.id ? 'text-heading' : 'text-muted'
@@ -78,7 +78,7 @@ export default function Nav({ dark, onToggleTheme, active }) {
                 </li>
               ))}
             </ul>
-            <ThemeToggle dark={dark} onToggle={onToggleTheme} />
+            <ThemeToggle onToggle={onToggleTheme} />
             {siteConfig.resumeUrl && (
               <Button href={siteConfig.resumeUrl} download className="px-4 py-2">
                 <Download size={15} aria-hidden="true" />
@@ -89,7 +89,7 @@ export default function Nav({ dark, onToggleTheme, active }) {
 
           {/* Mobile controls */}
           <div className="flex items-center gap-1 lg:hidden">
-            <ThemeToggle dark={dark} onToggle={onToggleTheme} />
+            <ThemeToggle onToggle={onToggleTheme} />
             <button
               type="button"
               onClick={() => setMenuOpen((o) => !o)}
@@ -111,7 +111,7 @@ export default function Nav({ dark, onToggleTheme, active }) {
               {navSections.map((item) => (
                 <li key={item.id}>
                   <a
-                    href={`#${item.id}`}
+                    href={`/#${item.id}`}
                     onClick={() => setMenuOpen(false)}
                     aria-current={active === item.id ? 'location' : undefined}
                     className={`block rounded-md px-3 py-2.5 text-base transition-colors hover:bg-surface ${

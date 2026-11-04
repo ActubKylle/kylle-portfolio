@@ -2,8 +2,7 @@
 // <base>-1280.webp (see scripts/make-thumbnail.py); width/height reserve the
 // layout box so lazy-loaded images never shift the page.
 export default function Picture({ image, alt, sizes = '(min-width: 1024px) 50vw, 100vw', eager = false, className = '' }) {
-  const publicUrl = process.env.PUBLIC_URL || '';
-  const src = (w) => `${publicUrl}${image.base}-${w}.webp`;
+  const src = (w) => `${image.base}-${w}.webp`;
 
   return (
     <img

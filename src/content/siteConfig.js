@@ -12,6 +12,15 @@ export const siteConfig = {
   // TODO: only keep this if it is true right now. Set to '' to hide the badge.
   status: 'Available for work',
 
+  // Live address, used for canonical URLs, the sitemap and social previews.
+  // Change it if you move to a custom domain (no trailing slash).
+  siteUrl: 'https://kylle-portfolio.vercel.app',
+
+  // Search-result / link-preview description for the home page.
+  description:
+    'Kylle Nichole Actub is a full-stack web developer in Cagayan de Oro City, PH building ' +
+    'web applications with Laravel, React, and MySQL, plus WordPress development and technical SEO.',
+
   headline: 'Building web applications that solve real problems.',
   intro:
     "I'm a full-stack web developer focused on building practical web applications " +
