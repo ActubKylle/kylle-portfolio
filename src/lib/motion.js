@@ -6,13 +6,13 @@
 const EASE = [0.16, 1, 0.3, 1]; // gentle "ease-out-expo"
 
 export const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
 };
 
 export const fadeIn = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.5, ease: EASE } },
+  visible: { opacity: 1, transition: { duration: 0.45, ease: EASE } },
 };
 
 export const stagger = {
@@ -24,5 +24,5 @@ export const stagger = {
 export const inView = {
   initial: 'hidden',
   whileInView: 'visible',
-  viewport: { once: true, margin: '-80px' },
+  viewport: { once: true, margin: '-60px' },
 };

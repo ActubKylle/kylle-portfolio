@@ -1,71 +1,49 @@
 // =============================================================================
-// SITE CONFIG — single source of truth for identity, links, and nav.
-//
-// ⚠️  BEFORE LAUNCH: replace every value marked `TODO`. These are the only
-//     placeholders in the codebase. Shipping them as-is recreates the exact
-//     credibility bugs the audit flagged (fake email, dead links).
+// SITE CONFIG — single source of truth for identity, links, and hero copy.
+// Section order + nav labels live in src/content/sections.js.
 // =============================================================================
 
 export const siteConfig = {
   name: 'Kylle Nichole Actub',
   shortName: 'KA',
   role: 'Full-Stack Web Developer',
-  location: 'Cebu, PH',
+  location: 'Cagayan de Oro City, PH',
 
-  // Hero portrait overlays.
+  // TODO: only keep this if it is true right now. Set to '' to hide the badge.
   status: 'Available for work',
-  // TODO: set an HONEST experience label or leave '' to hide the badge.
-  //       Don't inflate — e.g. 'BSIT Graduate · 2025' or '1+ yr building full-stack apps'.
-  experience: '',
-  // Proof shown as a product-UI card beside the hero portrait (credibility,
-  // not a tech list — the stack already appears below the CTAs).
-  heroProof: {
-    flagship: {
-      label: 'Currently building',
-      name: 'HTTA Training Management System',
-      detail: 'Full-stack · web + mobile',
-      href: '#work',
-    },
-    specialization: 'Full-stack web apps + technical SEO',
-    // TODO: set HONEST values or leave '' to hide that line. Don't inflate.
-    yearsBuilding: '', // e.g. '2+ yrs building web apps'
-    recentClient: '', // e.g. a public client/site you can name
-  },
-  tagline: 'I build full-stack web apps — from database to interface.',
-  intro:
-    'BSIT graduate based in Cebu, PH. I work across React / Next.js on the ' +
-    'front end and Laravel / PHP + MySQL on the back end. Open to remote roles.',
 
-  // TODO: confirm your real, monitored email address.
+  // Live address, used for canonical URLs, the sitemap and social previews.
+  // Change it if you move to a custom domain (no trailing slash).
+  siteUrl: 'https://kylle-portfolio.vercel.app',
+
+  // Search-result / link-preview description for the home page.
+  description:
+    'Kylle Nichole Actub is a full-stack web developer in Cagayan de Oro City, PH building ' +
+    'web applications with Laravel, React, and MySQL, plus WordPress development and technical SEO.',
+
+  headline: 'Building web applications that solve real problems.',
+  intro:
+    "I'm a full-stack web developer focused on building practical web applications " +
+    'with Laravel, React, and modern web technologies, plus WordPress development ' +
+    'and technical SEO for business websites.',
+
   email: 'kyllenichole123@gmail.com',
 
-  // TODO: drop your résumé PDF at `public/resume.pdf` (or change this path).
-  resumeUrl: '/resume.pdf',
+  // TODO: drop your résumé PDF at public/resume.pdf, then set this to '/resume.pdf'.
+  //       While empty, every résumé button is hidden (no broken downloads).
+  resumeUrl: '',
 
-  // TODO: confirm both handles resolve. Use ONE github handle everywhere.
   socials: {
     github: 'https://github.com/ActubKylle',
-    linkedin: 'https://www.linkedin.com/in/kylle-actub',
+    linkedin: 'https://www.linkedin.com/in/kylle-nichole-actub-4349713a4/',
   },
 
-  // TODO: get a free access key at https://web3forms.com (no backend needed).
-  //       Until then the contact form falls back to the direct email link.
-  web3formsKey: 'YOUR_WEB3FORMS_ACCESS_KEY',
+  // TODO: get a free access key at https://web3forms.com to enable the contact
+  //       form. While unset, the Contact section shows direct links only.
+  web3formsKey: '',
 
-  // Short "what I'm up to" line for the footer (optional — set to '' to hide).
-  now: 'Learning TypeScript · open to remote full-stack roles.',
-
-  // Compact stack strip shown in the hero (proof of range, replaces the old
-  // standalone Skills section).
-  stack: ['React', 'Next.js', 'Laravel', 'PHP', 'MySQL', 'Tailwind'],
-
-  nav: [
-    { id: 'work', label: 'Work' },
-    { id: 'about', label: 'About' },
-    { id: 'contact', label: 'Contact' },
-  ],
+  // Short "what I'm up to" line for the footer (set to '' to hide).
+  now: 'Open to remote full-stack and WordPress development roles.',
 };
 
-// True while the contact form has no real key, so the UI can adapt gracefully.
-export const isFormConfigured =
-  siteConfig.web3formsKey && siteConfig.web3formsKey !== 'YOUR_WEB3FORMS_ACCESS_KEY';
+export const isFormConfigured = Boolean(siteConfig.web3formsKey);

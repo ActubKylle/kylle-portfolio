@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 // Resolve the initial theme: explicit stored choice wins; otherwise default to
 // dark unless the OS explicitly prefers light. This matches the no-flash script
-// in public/index.html so there is no theme flicker on first paint.
+// in index.html so there is no theme flicker on first paint.
 function getInitial() {
   if (typeof window === 'undefined') return true;
   try {
@@ -14,6 +14,9 @@ function getInitial() {
   return !window.matchMedia('(prefers-color-scheme: light)').matches;
 }
 
+// Returns a toggle function. The current theme lives on <html class="dark">,
+// and components style themselves with `dark:` classes rather than reading
+// state, so prerendered HTML matches whatever theme the visitor has.
 export function useDarkMode() {
   const [dark, setDark] = useState(getInitial);
 
@@ -26,9 +29,8 @@ export function useDarkMode() {
       /* ignore */
     }
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#0d1117' : '#ffffff');
+    if (meta) meta.setAttribute('content', dark ? '#0a0a0b' : '#ffffff');
   }, [dark]);
 
-  const toggle = useCallback(() => setDark((d) => !d), []);
-  return [dark, toggle];
+  return useCallback(() => setDark((d) => !d), []);
 }

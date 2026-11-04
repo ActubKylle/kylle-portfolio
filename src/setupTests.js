@@ -1,5 +1,5 @@
 // jest-dom adds custom matchers like .toBeInTheDocument().
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 
 // jsdom doesn't implement these browser APIs that the app relies on.
 beforeAll(() => {
@@ -31,3 +31,7 @@ beforeAll(() => {
 
   if (!window.scrollTo) window.scrollTo = () => {};
 });
+
+// jsdom does not implement scrolling; the app calls these on route changes.
+window.scrollTo = () => {};
+Element.prototype.scrollIntoView = () => {};
