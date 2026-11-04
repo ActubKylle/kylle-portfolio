@@ -42,11 +42,11 @@ py scripts/make-thumbnail.py --url https://example.com --out public/images/websi
 
 The script captures the page with headless Chrome/Edge, crops it to 16:10, writes
 `example-640.webp` and `example-1280.webp`, and prints the `image:` line to paste into the
-entry. Then copy an existing entry in `src/content/websites.js` (or replace one of the confidential `createProjects` slots).
+entry. Then copy an existing entry in `src/content/websites.js`.
 
 A site with a `caseStudy` gets its own page at `#/websites/<slug>`.
 
 ## Before deploying
 
 Search the codebase for `TODO` — each one marks a fact only you can fill in (résumé,
-experience, education, HTTA screenshots, contact-form key, canonical URL).
+experience, education, HTTA screenshots, contact-form key, canonical URL, site platforms).

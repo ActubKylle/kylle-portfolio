@@ -26,7 +26,7 @@ export const siteConfig = {
 
   socials: {
     github: 'https://github.com/ActubKylle',
-    linkedin: 'https://www.linkedin.com/in/kylle-actub',
+    linkedin: 'https://www.linkedin.com/in/kylle-nichole-actub-4349713a4/',
   },
 
   // TODO: get a free access key at https://web3forms.com to enable the contact

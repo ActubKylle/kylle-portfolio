@@ -78,6 +78,28 @@ export const websites = [
     image: { base: "/images/websites/influencer-marketing-ai", width: 1280, height: 800 },
     caseStudy: null,
   },
+  {
+    slug: "warvena-construction",
+    title: "Warvena Construction",
+    client: { name: "Warvena Construction", confidential: false },
+    url: "https://warvenaconstruction.co.uk/",
+    showLink: true,
+    category: "business",
+    type: "Construction company website",
+    // Verified from the live site's HTML: Nuxt front end, Sanity content, Tailwind CSS
+    // (not WordPress). TODO: keep only the parts of this stack you worked in.
+    platform: ["Nuxt", "Sanity", "Tailwind CSS"],
+    contributions: [
+      "Website page implementation",
+      "Frontend customization",
+      "Responsive design adjustments",
+      "Website content and layout updates",
+    ],
+    year: "",
+    featured: true,
+    image: { base: "/images/websites/warvena-construction", width: 1280, height: 800 },
+    caseStudy: null,
+  },
 
   // =========================================================
   // OTHER SITES
@@ -130,27 +152,6 @@ export const websites = [
     year: "",
     featured: false,
     image: { base: "/images/websites/velaro", width: 1280, height: 800 },
-    caseStudy: null,
-  },
-  {
-    // TODO: add the live URL + screenshot, then set featured back to true.
-    slug: "warvena-construction",
-    title: "Warvena Construction",
-    client: { name: "Warvena Construction", confidential: false },
-    url: "",
-    showLink: false,
-    category: "business",
-    type: "Construction company website",
-    platform: ["WordPress", "Elementor", "HTML", "CSS", "JavaScript"],
-    contributions: [
-      "Website page implementation",
-      "Frontend customization",
-      "Responsive design adjustments",
-      "Website content and layout updates",
-    ],
-    year: "",
-    featured: false,
-    image: null,
     caseStudy: null,
   },
 ];
